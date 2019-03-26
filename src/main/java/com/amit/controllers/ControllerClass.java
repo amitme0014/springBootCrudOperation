@@ -1,23 +1,31 @@
-package CourseApi.Course.controllers;
+package com.amit.controllers;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Properties;
 
-import javax.swing.Spring;
-import javax.validation.constraints.AssertTrue.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.amit.pojo.OrganizationClass;
+import com.amit.service.OrganizationService;
+
+
+
 
 /**
  *
@@ -30,6 +38,11 @@ public class ControllerClass {
 	 * @param name the name to greet
 	 * @return greeting text
 	 */
+
+	@Autowired
+	private OrganizationService organizationService;
+	
+	
 	
 	  @RequestMapping(value = "/topics/{name}", method = RequestMethod.GET) 
 	  @ResponseStatus(HttpStatus.OK)
@@ -37,6 +50,9 @@ public class ControllerClass {
 	  { return "Hello " + name + "Amit"; 
 	  //return ""; 
 	  }
+	  
+	
+	  /*
 	  
 	  @SuppressWarnings("unused")
 	//@RequestMapping(value="/connection", method=RequestMethod.GET)
@@ -83,10 +99,45 @@ public class ControllerClass {
 			e.printStackTrace();
 		}
 	  }
+	  
+	 */
+	  
+	  @RequestMapping(method=RequestMethod.POST,value="/createOrgTable")
+	  public void saveOrgData(@RequestBody OrganizationClass organizationClass) {
+		//  organizationService.createOrgTableWithSomeData(organizationClass);
+		  
+		  System.out.println("In controller debug");
+		  System.out.println(organizationClass);
+		  organizationService.createOrgTableWithSomeData(organizationClass);
+	  }
+		  
+		  
+		/*
+		 * public OrganizationClass getDataById(@PathVariable Integer orgId) { return
+		 * organizationService.getDataById(orgId); }
+		 */
+		
+	  @RequestMapping(method=RequestMethod.GET, value="/employee/{orgId}")
+	  @ResponseStatus(HttpStatus.OK)
+	  public OrganizationClass getDataById(@PathVariable Integer orgId){
+	 System.out.println("in getDataById Block");
+		return organizationService.getDataById(orgId);
+		// return object; 	
+	  }
+		  
+		  
+		  
+	  }
+	  
 	 
+	  
+
+	 
+	  
+	  
 	
 	
 	
 	
 
-}
+
