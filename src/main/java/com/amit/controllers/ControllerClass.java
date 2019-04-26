@@ -32,6 +32,7 @@ import com.amit.service.OrganizationService;
  * A sample greetings controller to return greeting text
  */
 @RestController
+@RequestMapping("/controller")
 public class ControllerClass {
 	/**
 	 *
